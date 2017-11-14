@@ -51,10 +51,14 @@
      <Compile Include="Assets\Scripts\E67_ObaSc.cs" />
      <Compile Include="Assets\Scripts\E8_ScaleUp.cs" />
      <Compile Include="Assets\Scripts\E9_ObaState.cs" />
+     <Compile Include="Assets\Scripts\Emergency.cs" />
      <Compile Include="Assets\Scripts\G12_Door.cs" />
      <Compile Include="Assets\Scripts\G15_Back.cs" />
      <Compile Include="Assets\Scripts\GMText.cs" />
+     <Compile Include="Assets\Scripts\GameClear.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\GameOver.cs" />
+     <Compile Include="Assets\Scripts\GameStart.cs" />
      <Compile Include="Assets\Scripts\ObaText.cs" />
      <Compile Include="Assets\Scripts\P1_InputKey.cs" />
      <Compile Include="Assets\Scripts\P2_Hand.cs" />

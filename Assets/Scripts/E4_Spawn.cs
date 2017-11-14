@@ -8,25 +8,26 @@ public class E4_Spawn : MonoBehaviour {
 
 	string Obaname="Oba";
 	GameManager GM;
-	float spwnspd;
-	// Use this for initialization
+	[SerializeField]
+	float spwnspd=0.5f;
+	[SerializeField]
+	byte maxspn=50;
+ 	// Use this for initialization
 	void Start () {
 		GM=GameObject.Find ("GameManager").GetComponent<GameManager> ();
-		spwnspd = GM.GetEnemySpwnSpd;
 		StartCoroutine ("Spn");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 	IEnumerator Spn(){
 		while(true){
 			GameObject Obj;
 			Obj=Instantiate (Oba,transform.position,transform.rotation).gameObject;
-			Obj.name=Obaname+(byte)Time.time;
-			Obj.GetComponent<E67_ObaSc> ();
-			Debug.Log ("おばちゃん生成"+(byte)Time.time);
+			Obj.name=Obaname+GM.GetEnCnt;
+			Debug.Log ("おばちゃん生成"+GM.GetEnCnt);
+			if (GM.GetEnCnt > maxspn) {
+				GM.GetEndFlg = true;
+				break;
+			}
 			yield return new WaitForSeconds(spwnspd);
 		}
 	}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 	short[,] lane=new short[3,2];
@@ -10,19 +11,15 @@ public class GameManager : MonoBehaviour {
 	public float GetScale{ get { return scalesize; } }
 
 	[SerializeField]
-	float enemymovespd;
-	public float GetEnemyMoveSpd{get{ return enemymovespd;}}
-	[SerializeField]
-	float enemyspwnspd;
-	public float GetEnemySpwnSpd{get{ return enemyspwnspd;}}
-	[SerializeField]
 	byte enemy_max;
 	public byte GetEnemyMax{get{ return enemy_max;}}
 	[SerializeField]
 	byte enemy_limit;
 	public byte GetEnemyLimit{get{ return enemy_limit;}}
 	[SerializeField]
-	Sprite[] obasprites;
+	float enemy_destroytime;
+	public float GetEnemyDestroyTime{get{ return enemy_destroytime;}}
+
 	[SerializeField]
 	Sprite[] backsprites;
 	[SerializeField]
@@ -53,8 +50,10 @@ public class GameManager : MonoBehaviour {
 	GameObject pushefect;
 	public GameObject GetPushEffect{ get { return pushefect; } }
 
-
-
+	byte encnt=0;
+	public byte GetEnCnt{ get { return encnt; } }
+	bool endflg=false;
+	public bool GetEndFlg{ get { return endflg; } set{ endflg = value;}}
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("Call Game Manager");
@@ -64,13 +63,20 @@ public class GameManager : MonoBehaviour {
 			//レーン中の敵の数を初期化
 			lane [i,1] = 0;
 		}
+		//カーソルを非表示にする
+		Cursor.visible=false;
 	}
 
 	public void EnemyInLane(byte ll){
 		//ll番目のレーン中の敵の数を増やす
 		lane [ll,1]++;
+		encnt++;
 	}
 	public void EnemyOutLane(byte ll){
+		if (endflg == true) {
+			if (GameObject.FindGameObjectsWithTag ("Enemy").Length==0)
+				SceneManager.LoadScene ("clear");
+		}
 		//ll番目のレーン中の敵の数を減らす
 		lane [ll,1]--;
 	}
@@ -83,10 +89,6 @@ public class GameManager : MonoBehaviour {
 	}
 	public byte GetLaneLength(){
 		return (byte)lane.GetLength(0);
-	}
-
-	public Sprite GetSprite(byte oo){
-		return obasprites[oo];
 	}
 	public byte GetStep(byte ss){
 		return step [ss];
@@ -101,6 +103,7 @@ public class GameManager : MonoBehaviour {
 		return Doors[dd];
 	}
 	public void GameOver(){
+		SceneManager.LoadScene ("over");
 		Debug.Log ("GameOver");
 	}
 

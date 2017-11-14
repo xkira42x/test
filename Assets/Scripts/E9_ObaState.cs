@@ -6,7 +6,8 @@ public class E9_ObaState : MonoBehaviour {
 	E8_ScaleUp SU;
 	SpriteRenderer SR;
 	GameManager GM;
-
+	[SerializeField]
+	Sprite[] obasprites;
 	// Use this for initialization
 	void Start () {
 		//コンポーネントの取得
@@ -22,11 +23,14 @@ public class E9_ObaState : MonoBehaviour {
 		//スケール値がStep[0]値よりも大きく,
 		//Step[1]値よりも小さい時Spriteを切り替える
 		if (nowscale >= (float)GM.GetStep(0) && nowscale < (float)GM.GetStep(1)) {
-			SR.sprite = GM.GetSprite (1);
+			SR.sprite = GetSprite (1);
 		} else
 			//Step[1]値よりも大きい時Spriteを切り替える
 			if(nowscale>=(float)GM.GetStep(1)){
-				SR.sprite=GM.GetSprite(2);
+				SR.sprite=GetSprite(2);
 			}
+	}
+	Sprite GetSprite(byte oo){
+		return obasprites[oo];
 	}
 }

@@ -14,6 +14,7 @@ public class G12_Door : MonoBehaviour {
 	}
 	GameManager GM;
 	GameObject[] Doors=new GameObject[2];
+	AudioSource[] AS=new AudioSource[2];
 	// Use this for initialization
 	void Start () {
 		GM = GameObject.Find ("GameManager").GetComponent<GameManager> ();
@@ -23,6 +24,10 @@ public class G12_Door : MonoBehaviour {
 		for (byte i = 0; i < 2; i++) {
 			Doors[i]=GM.GetDoor (i);
 		}
+		//下ボタンを押すおと
+		AS[0] = this.GetComponent<AudioSource> ();
+		//ドアが閉まる音
+		AS[1] = this.transform.FindChild("elevator_door_open_C").GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -43,6 +48,11 @@ public class G12_Door : MonoBehaviour {
 
 	public void DownButton(bool dd){
 		doorflg = dd;
+		if (doorflg) {
+			AS [1].Play ();
+		} else {
+			AS [0].Play ();
+		}
 	}
 
 }

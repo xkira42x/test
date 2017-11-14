@@ -11,7 +11,8 @@ public class E67_ObaSc : MonoBehaviour {
 		push,
 		des
 	}
-	float movespd;
+	[SerializeField]
+	float enemymovespd=0.05f;
 	byte nowstate=0;
 	short laneX=0;
 	byte mylane;
@@ -25,7 +26,7 @@ public class E67_ObaSc : MonoBehaviour {
 		Debug.Log ("Call BBA");
 		GM = GameObject.Find ("GameManager").GetComponent<GameManager>();
 		limit = GM.GetEnemyLimit;
-		movespd = GM.GetEnemyMoveSpd;
+//		movespd = GM.GetEnemyMoveSpd;
 		massgage = GM.GetMassGage.GetComponent<Slider>();
 		OS = this.gameObject.GetComponent<E9_ObaState> ();
 		OP = this.gameObject.GetComponent<E10_ObaPush> ();
@@ -59,7 +60,7 @@ public class E67_ObaSc : MonoBehaviour {
 	}
 
 	void Move(){
-		this.transform.position += new Vector3 (0,-movespd,0);
+		this.transform.position += new Vector3 (0,-enemymovespd,0);
 		if (this.transform.position.y < -limit) {
 			massgage.value++;
 			iTween.ShakePosition (GM.GetCamera, iTween.Hash ("y", 0.2f,"time", 0.2f));
