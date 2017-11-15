@@ -6,6 +6,8 @@ public class Emergency : MonoBehaviour {
 
 	[SerializeField]
 	G12_Door GD;
+	[SerializeField]
+	GameObject EmBtn;
 	GameManager GM;
 	void Start(){
 		GM = GameObject.Find ("GameManager").GetComponent<GameManager> ();
@@ -13,6 +15,7 @@ public class Emergency : MonoBehaviour {
 	public void EmStop(){
 		iTween.ShakePosition (GM.GetCamera, iTween.Hash ("y", 0.8f,"time", 0.5f));
 		GD.enabled = false;
+		EmBtn.SetActive (false);
 		Invoke ("EmStart", 10f);
 	}
 	void EmStart(){
